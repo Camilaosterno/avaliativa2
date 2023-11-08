@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+struct Atleta {
+    char nome[30];
+    char posicao;
+    double habilidade;
+};
+
+struct Equipe {
+    char nome[30];
+    struct Atleta atletas[11];
+};
+
+double calcularHabilidadeEquipe(struct Equipe equipe) {
+    double habilidadeTotal = 0;
+
+    for (int i = 0; i < 11; i++) {
+        char posicao = equipe.atletas[i].posicao;
+        double habilidade = equipe.atletas[i].habilidade;
+
+        if (posicao == 'G') {
+            habilidadeTotal += 8.0 * habilidade;
+        } else if (posicao == 'L') {
+            habilidadeTotal += 10.0 * habilidade;
+        } else if (posicao == 'Z') {
+            habilidadeTotal += 5.0 * habilidade;
+        } else if (posicao == 'V') {
+            habilidadeTotal += 8.0 * habilidade;
+        } else if (posicao == 'M') {
+            habilidadeTotal += 11.0 * habilidade;
+        } else if (posicao == 'A') {
+            habilidadeTotal += 12.0 * habilidade;
+        }
+    }
+    return habilidadeTotal / 100.0;
+}
+int main() {
+    struct Equipe equipe1, equipe2;
+
+    scanf("%29[^\n]%*c", equipe1.nome);
+    for (int i = 0; i < 11; i++) {
+        scanf("%29[^;]; %c; %lf%*c", equipe1.atletas[i].nome, &equipe1.atletas[i].posicao, &equipe1.atletas[i].habilidade);
+    }
+
+    scanf("%29[^\n]%*c", equipe2.nome);
+    for (int i = 0; i < 11; i++) {
+        scanf("%29[^;]; %c; %lf%*c", equipe2.atletas[i].nome, &equipe2.atletas[i].posicao, &equipe2.atletas[i].habilidade);
+    }
+
+    double habilidadeEquipe1 = calcularHabilidadeEquipe(equipe1);
+    double habilidadeEquipe2 = calcularHabilidadeEquipe(equipe2);
+
+    printf("%s: %.2lf de habilidade\n", equipe1.nome, habilidadeEquipe1);
+    printf("%s: %.2lf de habilidade\n", equipe2.nome, habilidadeEquipe2);
+
+    if (habilidadeEquipe1 > habilidadeEquipe2) {
+        printf("%s tem mais habilidade\n", equipe1.nome);
+    } else if (habilidadeEquipe2 > habilidadeEquipe1) {
+        printf("%s tem mais habilidade\n", equipe2.nome);
+    } else {
+        printf("As equipes têm a mesma habilidade: %.2lf\n", habilidadeEquipe1);
+    }
+
+    return 0;
+}

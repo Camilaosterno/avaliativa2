@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    int matriz1[4][4], matriz2[4][4], resultado[4][4];
+    char operador[5];
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            scanf("%d", &matriz1[linha][coluna]);
+        }
+    }
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            scanf("%d", &matriz2[linha][coluna]);
+        }
+    }
+
+    scanf("%s", operador);
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            if (strcmp(operador, "soma") == 0) {
+                resultado[linha][coluna] = matriz1[linha][coluna] + matriz2[linha][coluna];
+            } else if (strcmp(operador, "sub") == 0) {
+                resultado[linha][coluna] = matriz1[linha][coluna] - matriz2[linha][coluna];
+            } else if (strcmp(operador, "mult") == 0) {
+                resultado[linha][coluna] = 0;
+                for (int i = 0; i < 4; i++) {
+                    resultado[linha][coluna] += matriz1[linha][i] * matriz2[i][coluna];
+                }
+            }
+        }
+    }
+
+    for (int linha = 0; linha < 4; linha++) {
+        for (int coluna = 0; coluna < 4; coluna++) {
+            printf("%4d", resultado[linha][coluna]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
